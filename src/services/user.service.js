@@ -86,6 +86,42 @@ class UserService {
 
         await mailer.sendPasswordResetToken(email, passwordResetToken);
     };
+
+    resetPassword = async (token, password) => {
+        const hashedPasswordResetToken = crypto.hash(token);
+        const user = await prisma.user.findFirst({
+            where: {
+                passwordResetToken: hashedPasswordResetToken
+            },
+            select: {
+                id: true,
+                passwordResetToken: true,
+                passwordResetTokenExpirationDate: true
+            }
+        });
+
+        if (!user) throw new CustomError("Invalid Token", 401);
+
+        const currentTime = new Date();
+        const tokenExpDate = new Date(user.passwordResetTokenExpirationDate);
+
+        if (tokenExpDate < currentTime)
+            throw new CustomError("Reset Token Expired", 422);
+
+        await prisma.user.update({
+            where: {
+                id: user.id
+            },
+            data: {
+                password: await bcrypt.hash(password),
+                passwordResetToken: null,
+                passwordResetTokenExpirationDate: null
+            }
+        });
+    };
+
+
+
 }
 
 export const userService = new UserService();
