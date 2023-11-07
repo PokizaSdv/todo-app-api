@@ -33,6 +33,17 @@ class UserController {
             token: jwt
         });
     });
+
+    forgotPassword = catchAsync(async (req, res) => {
+        const {
+            body: { email }
+        } = req;
+
+        await userService.forgotPassword(email);
+        res.status(200).json({
+            message: "Password reset email has been sent"
+        });
+    });
 }
 
 export const userController = new UserController();
