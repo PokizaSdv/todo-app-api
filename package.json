@@ -1,0 +1,22 @@
+{
+  "name": "todo-app-api",
+  "version": "1.0.0",
+  "description": "Todo application API",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "nodemon src/index.js",
+    "start": "node src/index.js",
+        "prisma:g": "npx prisma generate --schema=./src/prisma/schema.prisma",
+        "db:p": "npx prisma db push --schema=./src/prisma/schema.prisma"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PokizaSdv/todo-app-api.git"
+  },
+  "author": "pokiza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PokizaSdv/todo-app-api/issues"
+  },
+  "homepage": "https://github.com/PokizaSdv/todo-app-api#readme"
+}
