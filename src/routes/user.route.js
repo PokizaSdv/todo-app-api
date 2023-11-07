@@ -6,5 +6,6 @@ const userRouter = Router();
 
 userRouter.post("/sign-up", userController.signUp);
 userRouter.post("/sign-in", userController.signin);
+userRouter.patch("/forgot-password", userController.forgotPassword);
 
 export { userRouter };
