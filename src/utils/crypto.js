@@ -30,4 +30,4 @@ class Crypto {
 
 export const crypto = new Crypto();
 
-console.log(crypto.createToken);
+// console.log(crypto.createToken());
