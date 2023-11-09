@@ -1,5 +1,7 @@
 import express from "express";
 import { userRouter } from "./routes/user.route.js";
+import { taskRouter } from "./routes/task.route.js";
+
 import dotenv from "dotenv";
 import { GlobalError } from "./middlewares/global-error.middleware.js";
 
@@ -11,6 +13,7 @@ app.use(express.json());
 const PORT = process.env.PORT || 4000;
 
 app.use("/users", userRouter);
+app.use("/tasks", taskRouter);
 app.use(GlobalError.handle);
 
 app.listen(PORT, () => {
