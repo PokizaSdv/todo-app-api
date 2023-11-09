@@ -7,18 +7,10 @@ generator client {
     provider = "prisma-client-js"
 }
 
-enum TodoStatus {
+enum TaskStatus {
     TODO
     INPROGRESS
     DONE
-}
-
-type Todos {
-    id          String
-    title       String
-    description String?
-    due         DateTime
-    status      TodoStatus
 }
 
 model User {
@@ -32,5 +24,15 @@ model User {
     passwordResetTokenExpirationDate DateTime?
     createdAt                        DateTime  @default(now())
     updatedAt                        DateTime  @updatedAt
-    tasks                            Todos[]
+}
+
+model Task {
+    id          String     @id @default(auto()) @map("_id") @db.ObjectId
+    title       String
+    description String
+    dueDate     String
+    status      TaskStatus @default(TODO)
+    userId      String     @db.ObjectId
+    createdAt   DateTime   @default(now())
+    updatedAt   DateTime   @updatedAt
 }
